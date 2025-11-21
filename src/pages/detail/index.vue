@@ -1,13 +1,7 @@
 <template>
   <div class="page-wrap">
-    <!-- 顶部横幅 -->
-    <div class="banner-wrap">
-      <img
-        src="https://cdn.seovx.com/?mom=302"
-        alt="店铺横幅"
-        class="banner-img"
-      >
-    </div>
+    <!-- 顶部横幅轮播图 -->
+    <Carousel :images="bannerImages" />
 
     <!-- 店铺信息 -->
     <div class="store-info-wrap">
@@ -151,8 +145,16 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import Carousel from '@/components/Carousel.vue';
 
 const showContactModal = ref(false);
+
+// 轮播图图片（使用同一张图片三张）
+const bannerImages = ref([
+  'https://cdn.seovx.com/?mom=302',
+  'https://cdn.seovx.com/?mom=302',
+  'https://cdn.seovx.com/?mom=302',
+]);
 
 // 拨打电话
 const handleDial = (phone: string) => {
@@ -185,17 +187,7 @@ const handleCopy = (text: string) => {
   padding-bottom: 80px;
 }
 
-/* 顶部横幅 */
-.banner-wrap {
-  width: 100%;
-  overflow: hidden;
-}
-
-.banner-img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
+/* 顶部横幅轮播图样式由组件内部处理 */
 
 /* 店铺信息 */
 .store-info-wrap {

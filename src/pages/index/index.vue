@@ -1,13 +1,7 @@
 <template>
   <div class="page-wrap">
-    <!-- Banner -->
-    <div class="banner-wrap">
-      <img
-        src="./img/banner.png"
-        alt="banner"
-        class="banner-img"
-      >
-    </div>
+    <!-- Banner 轮播图 -->
+    <Carousel :images="bannerImages" />
 
     <!-- 搜索框 -->
     <div class="search-wrap">
@@ -162,8 +156,17 @@
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import mockData from '@/constant/mockData.json';
+import Carousel from '@/components/Carousel.vue';
+import banner1 from './img/banner.png';
 
 const router = useRouter();
+
+// 轮播图图片（使用同一张图片三张）
+const bannerImages = ref([
+  banner1,
+  banner1,
+  banner1,
+]);
 
 // 数据
 const stores = ref(mockData.stores);
@@ -256,17 +259,7 @@ const goToDetail = (id: number) => {
   padding-bottom: 20px;
 }
 
-/* Banner */
-.banner-wrap {
-  width: 100%;
-  overflow: hidden;
-}
-
-.banner-img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
+/* Banner 轮播图样式由组件内部处理 */
 
 /* 搜索框 */
 .search-wrap {
