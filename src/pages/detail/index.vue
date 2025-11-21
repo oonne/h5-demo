@@ -45,6 +45,23 @@
       </div>
     </div>
 
+    <!-- 客服 -->
+    <div class="service-wrap">
+      <div class="service-title">
+        客服
+      </div>
+      <div class="service-desc">
+        长按识别二维码添加客服
+      </div>
+      <div class="qrcode-wrap">
+        <img
+          src="./img/qrcode.png"
+          alt="客服二维码"
+          class="qrcode-img"
+        >
+      </div>
+    </div>
+
     <!-- 底部固定栏 -->
     <div class="bottom-bar">
       <div class="nav-buttons">
@@ -171,6 +188,39 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
+}
+
+/* 客服 */
+.service-wrap {
+  padding: 16px;
+  background-color: #fff;
+  margin-top: 8px;
+}
+
+.service-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.service-desc {
+  font-size: 14px;
+  color: #666;
+}
+
+.qrcode-wrap {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.qrcode-img {
+  max-width: 200px;
+  width: 100%;
+  height: auto;
   display: block;
 }
 
