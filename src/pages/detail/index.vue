@@ -82,14 +82,100 @@
           </div>
         </div>
       </div>
-      <button class="contact-btn">
+      <button
+        class="contact-btn"
+        @click="showContactModal = true"
+      >
         查看联系方式
       </button>
     </div>
+
+    <!-- 联系方式弹窗 -->
+    <transition name="fade">
+      <div
+        v-if="showContactModal"
+        class="modal-mask"
+        @click="showContactModal = false"
+      >
+        <div
+          class="modal-content"
+          @click.stop
+        >
+          <div class="modal-header">
+            <div class="modal-title">
+              联系方式
+            </div>
+            <button
+              class="modal-close"
+              @click="showContactModal = false"
+            >
+              ×
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="contact-item">
+              <div class="contact-label">
+                电话
+              </div>
+              <div class="contact-value">
+                13166058387
+              </div>
+              <button
+                class="contact-action-btn"
+                @click="handleDial('13166058387')"
+              >
+                拨打
+              </button>
+            </div>
+            <div class="contact-divider" />
+            <div class="contact-item">
+              <div class="contact-label">
+                微信号
+              </div>
+              <div class="contact-value">
+                19373127569
+              </div>
+              <button
+                class="contact-action-btn"
+                @click="handleCopy('19373127569')"
+              >
+                复制
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
+
+const showContactModal = ref(false);
+
+// 拨打电话
+const handleDial = (phone: string) => {
+  window.location.href = `tel:${phone}`;
+};
+
+// 复制微信号
+const handleCopy = (text: string) => {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => {
+      alert('已复制到剪贴板');
+    });
+  } else {
+    // 兼容旧浏览器
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+    alert('已复制到剪贴板');
+  }
+};
 </script>
 
 <style scoped>
@@ -280,5 +366,141 @@
 
 .contact-btn:active {
   background-color: #ffc700;
+}
+
+/* 联系方式弹窗 */
+.modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.modal-content {
+  width: 100%;
+  max-width: 100%;
+  background-color: #fff;
+  border-radius: 16px 16px 0 0;
+  max-height: 80vh;
+  overflow-y: auto;
+  transform: translateY(0);
+  transition: transform 0.3s ease-out;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  position: relative;
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+}
+
+.modal-close {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #333;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.modal-close:active {
+  opacity: 0.6;
+}
+
+.modal-body {
+  padding: 20px 16px;
+  padding-bottom: max(20px, env(safe-area-inset-bottom));
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  padding: 16px 0;
+  gap: 12px;
+}
+
+.contact-label {
+  font-size: 16px;
+  color: #333;
+  min-width: 60px;
+}
+
+.contact-value {
+  flex: 1;
+  font-size: 16px;
+  color: #333;
+}
+
+.contact-action-btn {
+  padding: 8px 20px;
+  background-color: #ffd700;
+  color: #333;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s;
+}
+
+.contact-action-btn:active {
+  background-color: #ffc700;
+}
+
+.contact-divider {
+  height: 1px;
+  background-color: #f0f0f0;
+  margin: 0;
+}
+
+/* 弹窗动画 */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+
+.fade-enter-active .modal-content,
+.fade-leave-active .modal-content {
+  transition: transform 0.3s ease-out;
+}
+
+.fade-enter-from {
+  opacity: 0;
+}
+
+.fade-enter-from .modal-content {
+  transform: translateY(100%);
+}
+
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-leave-to .modal-content {
+  transform: translateY(100%);
 }
 </style>
