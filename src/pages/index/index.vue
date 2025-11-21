@@ -150,6 +150,8 @@
       </div>
     </div>
   </div>
+
+  <BottomNav />
 </template>
 
 <script setup lang="ts">
@@ -157,6 +159,7 @@ import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import mockData from '@/constant/mockData.json';
 import Carousel from '@/components/carousel-swiper.vue';
+import BottomNav from '@/components/bottom-nav.vue';
 import banner1 from './img/banner.png';
 
 const router = useRouter();
@@ -256,7 +259,7 @@ const goToDetail = (id: number) => {
 .page-wrap {
   min-height: 100vh;
   background-color: #f5f5f5;
-  padding-bottom: 20px;
+  padding-bottom: 80px; /* 为底导航留出空间 */
 }
 
 /* Banner 轮播图样式由组件内部处理 */
