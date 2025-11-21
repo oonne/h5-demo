@@ -1,17 +1,19 @@
 <template>
   <div class="bottom-nav">
     <div
+      v-for="item in bottomNavConfig"
+      :key="item.routeName"
       class="nav-item"
-      :class="{ active: $route.name === 'index' }"
-      @click="goToPage('/index')"
+      :class="{ active: $route.name === item.routeName }"
+      @click="goToPage(item.path)"
     >
       <div class="nav-icon">
         <svg
-          v-if="$route.name === 'index'"
+          v-if="$route.name === item.routeName"
           viewBox="0 0 24 24"
           fill="currentColor"
         >
-          <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+          <path :d="item.activeIconPath" />
         </svg>
         <svg
           v-else
@@ -20,41 +22,17 @@
           stroke="currentColor"
           stroke-width="2"
         >
-          <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+          <path :d="item.inactiveIconPath" />
         </svg>
       </div>
-      <span class="nav-text">首页</span>
-    </div>
-    <div
-      class="nav-item"
-      :class="{ active: $route.name === 'group' }"
-      @click="goToPage('/group')"
-    >
-      <div class="nav-icon">
-        <svg
-          v-if="$route.name === 'group'"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-        >
-          <path d="M4 4h6v6H4V4zm10 0h6v6h-6V4zM4 14h6v6H4v-6zm10 0h6v6h-6v-6z" />
-        </svg>
-        <svg
-          v-else
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path d="M4 4h6v6H4V4zm10 0h6v6h-6V4zM4 14h6v6H4v-6zm10 0h6v6h-6v-6z" />
-        </svg>
-      </div>
-      <span class="nav-text">交流群</span>
+      <span class="nav-text">{{ item.name }}</span>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
+import { bottomNavConfig } from '@/config/bottom-nav';
 
 const router = useRouter();
 
