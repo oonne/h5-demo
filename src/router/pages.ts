@@ -7,6 +7,13 @@ const pages: RouteRecordRaw[] = [
     name: 'index',
     component: () => import('@/pages/index/index.vue'),
   },
+
+  // 详情页
+  {
+    path: '/detail',
+    name: 'detail',
+    component: () => import('@/pages/detail/index.vue'),
+  },
 ];
 
 export default pages;
