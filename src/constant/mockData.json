@@ -1,0 +1,113 @@
+{
+  "stores": [
+    {
+      "id": 1,
+      "name": "悦心养生会所",
+      "district": "大朗",
+      "province": "广东省",
+      "city": "东莞市",
+      "image": "https://cdn.seovx.com/?mom=302",
+      "tags": ["最新入驻"],
+      "rank": 2
+    },
+    {
+      "id": 2,
+      "name": "艺品堂",
+      "district": "虎门",
+      "province": "广东省",
+      "city": "东莞市",
+      "image": "https://cdn.seovx.com/?mom=302",
+      "tags": ["最新入驻"],
+      "rank": 2
+    },
+    {
+      "id": 3,
+      "name": "水悦会所",
+      "district": "寮步",
+      "province": "广东省",
+      "city": "东莞市",
+      "image": "https://cdn.seovx.com/?mom=302",
+      "tags": ["最新入驻", "热门店铺", "好评店铺"],
+      "rank": 2
+    },
+    {
+      "id": 4,
+      "name": "天悦阁",
+      "district": "厚街",
+      "province": "广东省",
+      "city": "东莞市",
+      "image": "https://cdn.seovx.com/?mom=302",
+      "tags": ["最新入驻", "热门店铺"],
+      "rank": 2
+    },
+    {
+      "id": 5,
+      "name": "龙跃足道",
+      "district": "厚街",
+      "province": "广东省",
+      "city": "东莞市",
+      "image": "https://cdn.seovx.com/?mom=302",
+      "tags": ["最新入驻", "热门店铺"],
+      "rank": 2
+    },
+    {
+      "id": 6,
+      "name": "御隆会所",
+      "district": "东城",
+      "province": "广东省",
+      "city": "东莞市",
+      "image": "https://cdn.seovx.com/?mom=302",
+      "tags": ["最新入驻"],
+      "rank": 2
+    },
+    {
+      "id": 7,
+      "name": "时遇养生会馆",
+      "district": "厚街",
+      "province": "广东省",
+      "city": "东莞市",
+      "image": "https://cdn.seovx.com/?mom=302",
+      "tags": ["最新入驻", "热门店铺"],
+      "rank": 2
+    },
+    {
+      "id": 8,
+      "name": "悦心养生会所2",
+      "district": "大朗",
+      "province": "广东省",
+      "city": "东莞市",
+      "image": "https://cdn.seovx.com/?mom=302",
+      "tags": ["热门店铺", "好评店铺"],
+      "rank": 1
+    }
+  ],
+  "cities": [
+    "东莞市",
+    "广州市",
+    "深圳市",
+    "佛山市"
+  ],
+  "districts": [
+    "全部",
+    "大朗",
+    "虎门",
+    "寮步",
+    "厚街",
+    "东城",
+    "南城",
+    "莞城"
+  ],
+  "sortOptions": [
+    { "label": "默认排序", "value": "default" },
+    { "label": "最新入驻", "value": "newest" },
+    { "label": "热门店铺", "value": "popular" },
+    { "label": "好评优先", "value": "rating" }
+  ],
+  "filterOptions": [
+    { "label": "全部", "value": "all" },
+    { "label": "最新入驻", "value": "newest" },
+    { "label": "热门店铺", "value": "popular" },
+    { "label": "好评店铺", "value": "rating" }
+  ]
+}
+
