@@ -1,0 +1,26 @@
+import { defineConfig } from 'vite';
+import { CodeInspectorPlugin } from 'code-inspector-plugin';
+import vue from '@vitejs/plugin-vue';
+import { resolve } from 'path';
+
+// https://cn.vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    vue(),
+    CodeInspectorPlugin({
+      bundler: 'vite',
+      editor: 'cursor',
+    }),
+  ],
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, './src'),
+    },
+  },
+  server: {
+    port: 10002,
+  },
+  build: {
+    assetsInlineLimit: 0,
+  },
+});
