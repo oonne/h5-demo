@@ -156,7 +156,7 @@
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import mockData from '@/constant/mockData.json';
-import Carousel from '@/components/Carousel.vue';
+import Carousel from '@/components/carousel-swiper.vue';
 import banner1 from './img/banner.png';
 
 const router = useRouter();

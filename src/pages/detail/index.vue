@@ -145,7 +145,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import Carousel from '@/components/Carousel.vue';
+import Carousel from '@/components/carousel-swiper.vue';
 
 const showContactModal = ref(false);
 
