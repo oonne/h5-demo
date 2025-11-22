@@ -13,6 +13,7 @@
         @touchend="handleTouchEnd"
       >
         <img
+          :key="currentIndex"
           :src="currentImageUrl"
           alt="预览图片"
           class="preview-img"
@@ -86,7 +87,11 @@ watch(() => props.modelValue, (newVal) => {
 
 const currentImageUrl = computed(() => {
   if (props.images.length === 0) return '';
-  return props.images[currentIndex.value] || props.images[0];
+  const index = currentIndex.value;
+  if (index >= 0 && index < props.images.length) {
+    return props.images[index];
+  }
+  return props.images[0] || '';
 });
 
 const handleClose = () => {
@@ -95,11 +100,15 @@ const handleClose = () => {
 };
 
 const prevImage = () => {
+  if (props.images.length <= 1) return;
   currentIndex.value = (currentIndex.value - 1 + props.images.length) % props.images.length;
+  translateX.value = 0;
 };
 
 const nextImage = () => {
+  if (props.images.length <= 1) return;
   currentIndex.value = (currentIndex.value + 1) % props.images.length;
+  translateX.value = 0;
 };
 
 // 触摸开始
