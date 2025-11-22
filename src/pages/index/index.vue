@@ -49,67 +49,93 @@
       <div
         v-if="selectedCity"
         class="filter-item"
+        @click="clearCity"
       >
         <span class="filter-tag">{{ selectedCity }} ×</span>
       </div>
       <div
-        class="filter-item dropdown"
-        @click="toggleDropdown('city')"
+        class="filter-item"
+        @click="toggleFilterModal('city')"
       >
-        <span>区县 ▾</span>
-        <div
-          v-if="showDropdown === 'city'"
-          class="dropdown-menu"
-        >
-          <div
-            v-for="district in districts"
-            :key="district"
-            class="dropdown-item"
-            @click.stop="selectDistrict(district)"
-          >
-            {{ district }}
-          </div>
-        </div>
+        <span>{{ selectedDistrict }} ▾</span>
       </div>
       <div
-        class="filter-item dropdown"
-        @click="toggleDropdown('sort')"
+        class="filter-item"
+        @click="toggleFilterModal('sort')"
       >
-        <span>排序 ▾</span>
-        <div
-          v-if="showDropdown === 'sort'"
-          class="dropdown-menu"
-        >
-          <div
-            v-for="option in sortOptions"
-            :key="option.value"
-            class="dropdown-item"
-            @click.stop="selectSort(option)"
-          >
-            {{ option.label }}
-          </div>
-        </div>
+        <span>{{ selectedSort.label }} ▾</span>
       </div>
       <div
-        class="filter-item dropdown"
-        @click="toggleDropdown('filter')"
+        class="filter-item"
+        @click="toggleFilterModal('filter')"
       >
-        <span>筛选 ▾</span>
-        <div
-          v-if="showDropdown === 'filter'"
-          class="dropdown-menu"
-        >
-          <div
-            v-for="option in filterOptions"
-            :key="option.value"
-            class="dropdown-item"
-            @click.stop="selectFilter(option)"
-          >
-            {{ option.label }}
-          </div>
-        </div>
+        <span>{{ selectedFilter.label }} ▾</span>
       </div>
     </div>
+
+    <!-- 筛选底部弹窗 -->
+    <transition name="filter-fade">
+      <div
+        v-if="showFilterModal"
+        class="filter-modal-mask"
+        @click="closeFilterModal"
+      >
+        <div
+          class="filter-modal-content"
+          @click.stop
+        >
+          <div class="filter-modal-header">
+            <div class="filter-modal-title">
+              {{ getFilterModalTitle() }}
+            </div>
+            <button
+              class="filter-modal-close"
+              @click="closeFilterModal"
+            >
+              ×
+            </button>
+          </div>
+          <div class="filter-modal-body">
+            <!-- 区县选择 -->
+            <template v-if="currentFilterType === 'city'">
+              <div
+                v-for="district in districts"
+                :key="district"
+                class="filter-modal-item"
+                :class="{ active: selectedDistrict === district }"
+                @click="selectDistrict(district)"
+              >
+                {{ district }}
+              </div>
+            </template>
+            <!-- 排序选择 -->
+            <template v-if="currentFilterType === 'sort'">
+              <div
+                v-for="option in sortOptions"
+                :key="option.value"
+                class="filter-modal-item"
+                :class="{ active: selectedSort.value === option.value }"
+                @click="selectSort(option)"
+              >
+                {{ option.label }}
+              </div>
+            </template>
+            <!-- 筛选选择 -->
+            <template v-if="currentFilterType === 'filter'">
+              <div
+                v-for="option in filterOptions"
+                :key="option.value"
+                class="filter-modal-item"
+                :class="{ active: selectedFilter.value === option.value }"
+                @click="selectFilter(option)"
+              >
+                {{ option.label }}
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+    </transition>
 
     <!-- 列表 -->
     <div class="list-wrap">
@@ -182,33 +208,54 @@ const selectedCity = ref('东莞市');
 const selectedDistrict = ref('全部');
 const selectedSort = ref(sortOptions.value[0]);
 const selectedFilter = ref(filterOptions.value[0]);
-const showDropdown = ref<string | null>(null);
+const showFilterModal = ref(false);
+const currentFilterType = ref<'city' | 'sort' | 'filter' | null>(null);
 
-// 切换下拉菜单
-const toggleDropdown = (type: string) => {
-  if (showDropdown.value === type) {
-    showDropdown.value = null;
+// 关闭筛选弹窗
+const closeFilterModal = () => {
+  showFilterModal.value = false;
+  currentFilterType.value = null;
+};
+
+// 打开筛选弹窗
+const toggleFilterModal = (type: 'city' | 'sort' | 'filter') => {
+  if (showFilterModal.value && currentFilterType.value === type) {
+    closeFilterModal();
   } else {
-    showDropdown.value = type;
+    currentFilterType.value = type;
+    showFilterModal.value = true;
   }
+};
+
+// 获取弹窗标题
+const getFilterModalTitle = () => {
+  if (currentFilterType.value === 'city') return '选择区县';
+  if (currentFilterType.value === 'sort') return '选择排序';
+  if (currentFilterType.value === 'filter') return '选择筛选';
+  return '';
+};
+
+// 清除城市
+const clearCity = () => {
+  selectedCity.value = '';
 };
 
 // 选择区县
 const selectDistrict = (district: string) => {
   selectedDistrict.value = district;
-  showDropdown.value = null;
+  closeFilterModal();
 };
 
 // 选择排序
 const selectSort = (option: { label: string; value: string }) => {
   selectedSort.value = option;
-  showDropdown.value = null;
+  closeFilterModal();
 };
 
 // 选择筛选
 const selectFilter = (option: { label: string; value: string }) => {
   selectedFilter.value = option;
-  showDropdown.value = null;
+  closeFilterModal();
 };
 
 // 获取标签样式类
@@ -266,7 +313,7 @@ const goToDetail = (id: number) => {
 
 /* 搜索框 */
 .search-wrap {
-  padding: 12px 16px;
+  padding: 12px 6.4vw;
   background-color: #fff;
 }
 
@@ -298,7 +345,7 @@ const goToDetail = (id: number) => {
 }
 
 .search-btn {
-  background-color: #ffd700;
+  background-color: #f9e449;
   color: #333;
   border: none;
   padding: 6px 16px;
@@ -312,7 +359,7 @@ const goToDetail = (id: number) => {
 .action-buttons {
   display: flex;
   gap: 12px;
-  padding: 12px 16px;
+  padding: 12px 6.4vw;
   background-color: #fff;
 }
 
@@ -331,7 +378,7 @@ const goToDetail = (id: number) => {
 }
 
 .yellow-btn {
-  background-color: #ffd700;
+  background-color: #f9e449;
 }
 
 .btn-content {
@@ -362,7 +409,7 @@ const goToDetail = (id: number) => {
 .filter-wrap {
   display: flex;
   gap: 8px;
-  padding: 12px 16px;
+  padding: 12px 6.4vw;
   background-color: #fff;
   flex-wrap: wrap;
 }
@@ -382,40 +429,137 @@ const goToDetail = (id: number) => {
   color: #333;
 }
 
-.dropdown {
-  position: relative;
-}
-
-.dropdown-menu {
-  position: absolute;
-  top: 100%;
+/* 筛选底部弹窗 */
+.filter-modal-mask {
+  position: fixed;
+  top: 0;
   left: 0;
-  margin-top: 4px;
-  background-color: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  z-index: 100;
-  min-width: 120px;
-  max-height: 200px;
-  overflow-y: auto;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 }
 
-.dropdown-item {
-  padding: 10px 16px;
-  font-size: 13px;
+.filter-modal-content {
+  width: 100%;
+  max-width: 100%;
+  background-color: #fff;
+  border-radius: 16px 16px 0 0;
+  max-height: 70vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(0);
+  transition: transform 0.3s ease-out;
+}
+
+.filter-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.filter-modal-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  text-align: center;
+}
+
+.filter-modal-close {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #333;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.filter-modal-close:active {
+  opacity: 0.6;
+}
+
+.filter-modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+  max-height: calc(70vh - 60px);
+}
+
+.filter-modal-item {
+  padding: 14px 6.4vw;
+  font-size: 15px;
   color: #333;
   cursor: pointer;
   transition: background-color 0.2s;
+  text-align: center;
+  position: relative;
 }
 
-.dropdown-item:hover {
+.filter-modal-item:active {
   background-color: #f5f5f5;
+}
+
+.filter-modal-item.active {
+  color: #f9e449;
+  font-weight: 500;
+}
+
+.filter-modal-item.active::after {
+  content: '✓';
+  position: absolute;
+  right: 6.4vw;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #f9e449;
+}
+
+/* 弹窗动画 */
+.filter-fade-enter-active,
+.filter-fade-leave-active {
+  transition: opacity 0.3s;
+}
+
+.filter-fade-enter-active .filter-modal-content,
+.filter-fade-leave-active .filter-modal-content {
+  transition: transform 0.3s ease-out;
+}
+
+.filter-fade-enter-from {
+  opacity: 0;
+}
+
+.filter-fade-enter-from .filter-modal-content {
+  transform: translateY(100%);
+}
+
+.filter-fade-leave-to {
+  opacity: 0;
+}
+
+.filter-fade-leave-to .filter-modal-content {
+  transform: translateY(100%);
 }
 
 /* 列表 */
 .list-wrap {
-  padding: 12px 16px;
+  padding: 12px 6.4vw;
 }
 
 .store-card {
@@ -427,6 +571,7 @@ const goToDetail = (id: number) => {
   margin-bottom: 12px;
   cursor: pointer;
   transition: box-shadow 0.2s;
+  min-height: 120px;
 }
 
 .store-card:active {
@@ -451,7 +596,8 @@ const goToDetail = (id: number) => {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  justify-content: space-between;
+  min-height: 100px;
 }
 
 .store-title {
@@ -459,18 +605,22 @@ const goToDetail = (id: number) => {
   font-weight: 500;
   color: #333;
   line-height: 1.4;
+  margin-bottom: 6px;
 }
 
 .store-location {
   font-size: 12px;
   color: #999;
+  margin-bottom: auto;
 }
 
 .store-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-top: 4px;
+  max-height: 44px;
+  overflow: hidden;
+  align-items: flex-end;
 }
 
 .tag {
@@ -482,7 +632,7 @@ const goToDetail = (id: number) => {
 }
 
 .rank-tag {
-  background-color: #ffd700;
+  background-color: #f9e449;
   color: #333;
   font-weight: 500;
 }
@@ -564,7 +714,7 @@ const goToDetail = (id: number) => {
 /* iPad 端适配 (768px - 1024px) */
 @media screen and (min-width: 768px) and (max-width: 1024px) {
   .search-wrap {
-    padding: 14px 20px;
+    padding: 14px 6.4vw;
   }
 
   .search-icon {
@@ -581,7 +731,7 @@ const goToDetail = (id: number) => {
   }
 
   .action-buttons {
-    padding: 14px 20px;
+    padding: 14px 6.4vw;
   }
 
   .action-btn {
@@ -601,7 +751,7 @@ const goToDetail = (id: number) => {
   }
 
   .filter-wrap {
-    padding: 14px 20px;
+    padding: 14px 6.4vw;
   }
 
   .filter-item {
@@ -615,7 +765,7 @@ const goToDetail = (id: number) => {
   }
 
   .list-wrap {
-    padding: 14px 20px;
+    padding: 14px 6.4vw;
   }
 
   .store-card {
@@ -649,7 +799,9 @@ const goToDetail = (id: number) => {
 /* 大屏 iPad 和桌面端适配 (大于 1024px) */
 @media screen and (min-width: 1025px) {
   .search-wrap {
-    padding: 16px 24px;
+    padding: 16px 6.4vw;
+    max-width: 1200px;
+    margin: 0 auto;
   }
 
   .search-icon {
@@ -666,7 +818,7 @@ const goToDetail = (id: number) => {
   }
 
   .action-buttons {
-    padding: 16px 24px;
+    padding: 16px 6.4vw;
     max-width: 1200px;
     margin: 0 auto;
   }
@@ -688,7 +840,7 @@ const goToDetail = (id: number) => {
   }
 
   .filter-wrap {
-    padding: 16px 24px;
+    padding: 16px 6.4vw;
     max-width: 1200px;
     margin: 0 auto;
   }
@@ -704,7 +856,7 @@ const goToDetail = (id: number) => {
   }
 
   .list-wrap {
-    padding: 16px 24px;
+    padding: 16px 6.4vw;
     max-width: 1200px;
     margin: 0 auto;
   }

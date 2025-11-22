@@ -19,6 +19,7 @@
             :src="image"
             :alt="`轮播图${index + 1}`"
             class="carousel-img"
+            @click="$emit('image-click', { image, index })"
           >
         </div>
       </div>
@@ -135,7 +136,7 @@ onUnmounted(() => {
   width: 100%;
   overflow: hidden;
   position: relative;
-  aspect-ratio: 2.5 / 1; /* 固定宽高比 */
+  height: 36vw; /* 高度为屏宽的36vw */
 }
 
 .carousel-track {
@@ -163,6 +164,7 @@ onUnmounted(() => {
   object-fit: cover;
   object-position: center;
   display: block;
+  cursor: pointer;
 }
 
 .carousel-indicators {
