@@ -181,11 +181,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import mockData from '@/constant/mockData.json';
 import Carousel from '@/components/carousel-swiper.vue';
 import BottomNav from '@/components/bottom-nav.vue';
+import { authApi } from '@/api';
+import { to } from '@/utils';
 import banner1 from './img/banner.png';
 
 const router = useRouter();
@@ -300,6 +302,25 @@ const filteredStores = computed(() => {
 const goToDetail = (id: number) => {
   router.push(`/detail?id=${id}`);
 };
+
+/*
+ * 调用接口demo
+ */
+const testApi = async () => {
+  const [err, res] = await to(authApi.test({
+    name: '加一',
+  }));
+  if (err) {
+    console.log('请求失败写这里', err);
+    return;
+  }
+
+  console.log('请求成功写这里', res);
+};
+
+onMounted(() => {
+  testApi();
+});
 </script>
 
 <style scoped>
