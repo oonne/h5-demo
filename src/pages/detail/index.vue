@@ -114,7 +114,10 @@
     <!-- 底部固定栏 -->
     <div class="bottom-bar">
       <div class="nav-buttons">
-        <div class="nav-btn">
+        <div
+          class="nav-btn"
+          @click="handleShare"
+        >
           <div class="nav-icon">
             <img
               :src="ShareIcon"
@@ -126,7 +129,10 @@
             分享
           </div>
         </div>
-        <div class="nav-btn">
+        <div
+          class="nav-btn"
+          @click="handleGoHome"
+        >
           <div class="nav-icon">
             <img
               :src="HomeIcon"
@@ -222,11 +228,14 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
 import Carousel from '@/components/carousel-swiper.vue';
 import ImagePreview from '@/components/image-preview.vue';
 import QRCode from '@/assets/img/qrcode.png';
 import ShareIcon from '@/assets/img/share-icon.png';
 import HomeIcon from '@/assets/img/home-icon.png';
+
+const router = useRouter();
 
 const showContactModal = ref(false);
 const showIntroImagePreview = ref(false);
@@ -311,6 +320,21 @@ const handleCopy = (text: string) => {
     document.execCommand('copy');
     document.body.removeChild(textarea);
     alert('已复制到剪贴板');
+  }
+};
+
+// 跳转到首页
+const handleGoHome = () => {
+  router.push('/index');
+};
+
+// 处理分享
+const handleShare = () => {
+  const shareUrl = import.meta.env.VITE_SHARE_URL || '';
+  if (shareUrl) {
+    handleCopy(shareUrl);
+  } else {
+    alert('分享链接未配置');
   }
 };
 </script>
