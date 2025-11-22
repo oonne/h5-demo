@@ -116,7 +116,11 @@
       <div class="nav-buttons">
         <div class="nav-btn">
           <div class="nav-icon">
-            📤
+            <img
+              :src="ShareIcon"
+              alt="分享"
+              class="nav-icon-img"
+            >
           </div>
           <div class="nav-text">
             分享
@@ -124,7 +128,11 @@
         </div>
         <div class="nav-btn">
           <div class="nav-icon">
-            🏠
+            <img
+              :src="HomeIcon"
+              alt="首页"
+              class="nav-icon-img"
+            >
           </div>
           <div class="nav-text">
             首页
@@ -217,6 +225,8 @@ import { ref, computed } from 'vue';
 import Carousel from '@/components/carousel-swiper.vue';
 import ImagePreview from '@/components/image-preview.vue';
 import QRCode from '@/assets/img/qrcode.png';
+import ShareIcon from '@/assets/img/share-icon.png';
+import HomeIcon from '@/assets/img/home-icon.png';
 
 const showContactModal = ref(false);
 const showIntroImagePreview = ref(false);
@@ -544,7 +554,18 @@ const handleCopy = (text: string) => {
 }
 
 .nav-icon {
-  font-size: 20px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 
 .nav-text {
@@ -881,7 +902,8 @@ const handleCopy = (text: string) => {
   }
 
   .nav-icon {
-    font-size: 24px;
+    width: 28px;
+    height: 28px;
   }
 
   .nav-text {
@@ -1059,7 +1081,8 @@ const handleCopy = (text: string) => {
   }
 
   .nav-icon {
-    font-size: 26px;
+    width: 30px;
+    height: 30px;
   }
 
   .nav-text {
