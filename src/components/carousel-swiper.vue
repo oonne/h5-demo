@@ -135,22 +135,33 @@ onUnmounted(() => {
   width: 100%;
   overflow: hidden;
   position: relative;
+  aspect-ratio: 2.5 / 1; /* 固定宽高比 */
 }
 
 .carousel-track {
   display: flex;
+  height: 100%;
   transition: transform 0.3s ease;
   will-change: transform;
 }
 
 .carousel-item {
   width: 100%;
+  height: 100%;
   flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
 }
 
 .carousel-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
   display: block;
 }
 

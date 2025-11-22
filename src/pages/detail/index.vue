@@ -495,4 +495,363 @@ const handleCopy = (text: string) => {
 .fade-leave-to .modal-content {
   transform: translateY(100%);
 }
+
+/* 手机端适配 (默认样式，小于 768px) */
+@media screen and (max-width: 767px) {
+  .store-title {
+    font-size: 18px;
+  }
+
+  .store-location {
+    font-size: 14px;
+  }
+
+  .store-desc {
+    font-size: 14px;
+  }
+
+  .tag {
+    font-size: 12px;
+  }
+
+  .intro-title {
+    font-size: 16px;
+  }
+
+  .service-title {
+    font-size: 18px;
+  }
+
+  .service-desc {
+    font-size: 14px;
+  }
+
+  .nav-icon {
+    font-size: 20px;
+  }
+
+  .nav-text {
+    font-size: 12px;
+  }
+
+  .contact-btn {
+    font-size: 16px;
+  }
+
+  .modal-title {
+    font-size: 18px;
+  }
+
+  .contact-label {
+    font-size: 16px;
+  }
+
+  .contact-value {
+    font-size: 16px;
+  }
+
+  .contact-action-btn {
+    font-size: 14px;
+  }
+}
+
+/* iPad 端适配 (768px - 1024px) */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .store-info-wrap {
+    padding: 20px;
+  }
+
+  .store-title {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+
+  .store-location {
+    font-size: 16px;
+    margin-bottom: 14px;
+  }
+
+  .store-desc {
+    font-size: 16px;
+    margin-bottom: 14px;
+    line-height: 1.6;
+  }
+
+  .store-tags {
+    gap: 10px;
+  }
+
+  .tag {
+    font-size: 14px;
+    padding: 5px 14px;
+    border-radius: 14px;
+  }
+
+  .intro-wrap {
+    padding: 20px;
+    margin-top: 10px;
+  }
+
+  .intro-title {
+    font-size: 18px;
+    margin-bottom: 14px;
+  }
+
+  .intro-images {
+    gap: 10px;
+  }
+
+  .intro-img-item {
+    border-radius: 10px;
+  }
+
+  .service-wrap {
+    padding: 20px;
+    margin-top: 10px;
+  }
+
+  .service-title {
+    font-size: 20px;
+    margin-bottom: 14px;
+  }
+
+  .service-desc {
+    font-size: 16px;
+  }
+
+  .qrcode-wrap {
+    padding: 24px 0;
+  }
+
+  .qrcode-img {
+    max-width: 240px;
+  }
+
+  .bottom-bar {
+    padding: 14px 20px;
+  }
+
+  .nav-buttons {
+    gap: 28px;
+  }
+
+  .nav-icon {
+    font-size: 24px;
+  }
+
+  .nav-text {
+    font-size: 14px;
+  }
+
+  .contact-btn {
+    height: 48px;
+    font-size: 18px;
+    border-radius: 24px;
+    max-width: 220px;
+    margin-left: 20px;
+  }
+
+  .modal-header {
+    padding: 20px;
+  }
+
+  .modal-title {
+    font-size: 20px;
+  }
+
+  .modal-close {
+    font-size: 28px;
+    width: 36px;
+    height: 36px;
+    right: 20px;
+  }
+
+  .modal-body {
+    padding: 24px 20px;
+  }
+
+  .contact-item {
+    padding: 18px 0;
+    gap: 16px;
+  }
+
+  .contact-label {
+    font-size: 18px;
+    min-width: 70px;
+  }
+
+  .contact-value {
+    font-size: 18px;
+  }
+
+  .contact-action-btn {
+    padding: 10px 24px;
+    font-size: 16px;
+    border-radius: 22px;
+  }
+}
+
+/* 大屏 iPad 和桌面端适配 (大于 1024px) */
+@media screen and (min-width: 1025px) {
+  .store-info-wrap {
+    padding: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .store-title {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+
+  .store-location {
+    font-size: 17px;
+    margin-bottom: 16px;
+  }
+
+  .store-desc {
+    font-size: 17px;
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+
+  .store-tags {
+    gap: 12px;
+  }
+
+  .tag {
+    font-size: 15px;
+    padding: 6px 16px;
+    border-radius: 16px;
+  }
+
+  .intro-wrap {
+    padding: 24px;
+    margin-top: 12px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .intro-title {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+
+  .intro-images {
+    gap: 12px;
+  }
+
+  .intro-img-item {
+    border-radius: 12px;
+  }
+
+  .service-wrap {
+    padding: 24px;
+    margin-top: 12px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .service-title {
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+
+  .service-desc {
+    font-size: 17px;
+  }
+
+  .qrcode-wrap {
+    padding: 28px 0;
+  }
+
+  .qrcode-img {
+    max-width: 280px;
+  }
+
+  .bottom-bar {
+    padding: 16px 24px;
+    max-width: 1200px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .nav-buttons {
+    gap: 32px;
+  }
+
+  .nav-icon {
+    font-size: 26px;
+  }
+
+  .nav-text {
+    font-size: 15px;
+  }
+
+  .contact-btn {
+    height: 50px;
+    font-size: 18px;
+    border-radius: 25px;
+    max-width: 240px;
+    margin-left: 24px;
+  }
+
+  .contact-btn:hover {
+    background-color: #ffc700;
+  }
+
+  .modal-content {
+    max-width: 600px;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .modal-header {
+    padding: 24px;
+  }
+
+  .modal-title {
+    font-size: 22px;
+  }
+
+  .modal-close {
+    font-size: 30px;
+    width: 40px;
+    height: 40px;
+    right: 24px;
+  }
+
+  .modal-close:hover {
+    opacity: 0.7;
+  }
+
+  .modal-body {
+    padding: 28px 24px;
+  }
+
+  .contact-item {
+    padding: 20px 0;
+    gap: 20px;
+  }
+
+  .contact-label {
+    font-size: 18px;
+    min-width: 80px;
+  }
+
+  .contact-value {
+    font-size: 18px;
+  }
+
+  .contact-action-btn {
+    padding: 12px 28px;
+    font-size: 17px;
+    border-radius: 24px;
+  }
+
+  .contact-action-btn:hover {
+    background-color: #ffc700;
+  }
+}
 </style>

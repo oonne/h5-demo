@@ -280,7 +280,7 @@ const goToDetail = (id: number) => {
 }
 
 .search-icon {
-  font-size: 18px;
+  font-size: 16px;
   color: #999;
 }
 
@@ -289,7 +289,7 @@ const goToDetail = (id: number) => {
   border: none;
   outline: none;
   background: transparent;
-  font-size: 14px;
+  font-size: 13px;
   color: #333;
 }
 
@@ -303,7 +303,7 @@ const goToDetail = (id: number) => {
   border: none;
   padding: 6px 16px;
   border-radius: 6px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   cursor: pointer;
 }
@@ -343,18 +343,18 @@ const goToDetail = (id: number) => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   color: #333;
   margin-bottom: 4px;
 }
 
 .arrow {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .btn-desc {
-  font-size: 12px;
+  font-size: 11px;
   color: #666;
 }
 
@@ -372,7 +372,7 @@ const goToDetail = (id: number) => {
   background-color: #fff;
   border: 1px solid #e0e0e0;
   border-radius: 6px;
-  font-size: 14px;
+  font-size: 13px;
   color: #333;
   cursor: pointer;
   position: relative;
@@ -403,7 +403,7 @@ const goToDetail = (id: number) => {
 
 .dropdown-item {
   padding: 10px 16px;
-  font-size: 14px;
+  font-size: 13px;
   color: #333;
   cursor: pointer;
   transition: background-color 0.2s;
@@ -455,7 +455,7 @@ const goToDetail = (id: number) => {
 }
 
 .store-title {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
   color: #333;
   line-height: 1.4;
@@ -476,7 +476,7 @@ const goToDetail = (id: number) => {
 .tag {
   padding: 2px 8px;
   border-radius: 4px;
-  font-size: 11px;
+  font-size: 10px;
   background-color: #f5f5f5;
   color: #666;
 }
@@ -503,10 +503,237 @@ const goToDetail = (id: number) => {
 }
 
 .store-arrow {
-  font-size: 20px;
+  font-size: 18px;
   color: #ccc;
   display: flex;
   align-items: center;
   flex-shrink: 0;
+}
+
+/* 手机端适配 (默认样式，小于 768px) */
+@media screen and (max-width: 767px) {
+  .search-icon {
+    font-size: 16px;
+  }
+
+  .search-input {
+    font-size: 13px;
+  }
+
+  .search-btn {
+    font-size: 13px;
+  }
+
+  .btn-main {
+    font-size: 14px;
+  }
+
+  .arrow {
+    font-size: 16px;
+  }
+
+  .btn-desc {
+    font-size: 11px;
+  }
+
+  .filter-item {
+    font-size: 13px;
+  }
+
+  .dropdown-item {
+    font-size: 13px;
+  }
+
+  .store-title {
+    font-size: 15px;
+  }
+
+  .store-location {
+    font-size: 12px;
+  }
+
+  .tag {
+    font-size: 10px;
+  }
+
+  .store-arrow {
+    font-size: 18px;
+  }
+}
+
+/* iPad 端适配 (768px - 1024px) */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .search-wrap {
+    padding: 14px 20px;
+  }
+
+  .search-icon {
+    font-size: 18px;
+  }
+
+  .search-input {
+    font-size: 15px;
+  }
+
+  .search-btn {
+    font-size: 15px;
+    padding: 7px 18px;
+  }
+
+  .action-buttons {
+    padding: 14px 20px;
+  }
+
+  .action-btn {
+    padding: 14px;
+  }
+
+  .btn-main {
+    font-size: 17px;
+  }
+
+  .arrow {
+    font-size: 20px;
+  }
+
+  .btn-desc {
+    font-size: 13px;
+  }
+
+  .filter-wrap {
+    padding: 14px 20px;
+  }
+
+  .filter-item {
+    font-size: 15px;
+    padding: 8px 14px;
+  }
+
+  .dropdown-item {
+    font-size: 15px;
+    padding: 12px 18px;
+  }
+
+  .list-wrap {
+    padding: 14px 20px;
+  }
+
+  .store-card {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .store-image {
+    width: 120px;
+    height: 120px;
+  }
+
+  .store-title {
+    font-size: 17px;
+  }
+
+  .store-location {
+    font-size: 13px;
+  }
+
+  .tag {
+    font-size: 11px;
+    padding: 3px 10px;
+  }
+
+  .store-arrow {
+    font-size: 22px;
+  }
+}
+
+/* 大屏 iPad 和桌面端适配 (大于 1024px) */
+@media screen and (min-width: 1025px) {
+  .search-wrap {
+    padding: 16px 24px;
+  }
+
+  .search-icon {
+    font-size: 20px;
+  }
+
+  .search-input {
+    font-size: 16px;
+  }
+
+  .search-btn {
+    font-size: 16px;
+    padding: 8px 20px;
+  }
+
+  .action-buttons {
+    padding: 16px 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .action-btn {
+    padding: 16px;
+  }
+
+  .btn-main {
+    font-size: 18px;
+  }
+
+  .arrow {
+    font-size: 22px;
+  }
+
+  .btn-desc {
+    font-size: 14px;
+  }
+
+  .filter-wrap {
+    padding: 16px 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .filter-item {
+    font-size: 16px;
+    padding: 8px 16px;
+  }
+
+  .dropdown-item {
+    font-size: 16px;
+    padding: 12px 20px;
+  }
+
+  .list-wrap {
+    padding: 16px 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .store-card {
+    padding: 18px;
+    gap: 18px;
+  }
+
+  .store-image {
+    width: 140px;
+    height: 140px;
+  }
+
+  .store-title {
+    font-size: 18px;
+  }
+
+  .store-location {
+    font-size: 14px;
+  }
+
+  .tag {
+    font-size: 12px;
+    padding: 4px 12px;
+  }
+
+  .store-arrow {
+    font-size: 24px;
+  }
 }
 </style>
