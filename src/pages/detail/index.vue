@@ -226,24 +226,24 @@ const showQrcodePreview = ref(false);
 const showBannerPreview = ref(false);
 const bannerPreviewIndex = ref(0);
 
-// 轮播图图片（使用同一张图片三张）
+// 轮播图图片
 const bannerImages = ref([
   'https://cdn.seovx.com/?mom=302',
-  'https://cdn.seovx.com/?mom=302',
-  'https://cdn.seovx.com/?mom=302',
+  'https://cdn.seovx.com/d/?mom=302',
+  'https://cdn.seovx.com/ha/?mom=302',
 ]);
 
 // 店铺介绍图片（示例：9张图片）
 const introImages = ref([
   'https://cdn.seovx.com/?mom=302',
+  'https://cdn.seovx.com/d/?mom=302',
+  'https://cdn.seovx.com/ha/?mom=302',
   'https://cdn.seovx.com/?mom=302',
+  'https://cdn.seovx.com/d/?mom=302',
+  'https://cdn.seovx.com/ha/?mom=302',
   'https://cdn.seovx.com/?mom=302',
-  'https://cdn.seovx.com/?mom=302',
-  'https://cdn.seovx.com/?mom=302',
-  'https://cdn.seovx.com/?mom=302',
-  'https://cdn.seovx.com/?mom=302',
-  'https://cdn.seovx.com/?mom=302',
-  'https://cdn.seovx.com/?mom=302',
+  'https://cdn.seovx.com/d/?mom=302',
+  'https://cdn.seovx.com/ha/?mom=302',
 ]);
 
 // 显示的图片列表（默认最多6张，即两行）
