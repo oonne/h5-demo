@@ -159,19 +159,19 @@
             {{ store.province }}·{{ store.city }}
           </div>
           <div class="store-tags">
-            <span class="tag rank-tag">#{{ store.rank }}</span>
-            <span
-              v-for="tag in store.tags"
-              :key="tag"
-              class="tag"
-              :class="getTagClass(tag)"
-            >
-              {{ tag }}
-            </span>
+            <div class="tags-container">
+              <span class="tag rank-tag">#{{ store.rank }}</span>
+              <span
+                v-for="tag in store.tags"
+                :key="tag"
+                class="tag"
+                :class="getTagClass(tag)"
+              >
+                {{ tag }}
+              </span>
+            </div>
+            <div class="store-arrow" />
           </div>
-        </div>
-        <div class="store-arrow">
-          →
         </div>
       </div>
     </div>
@@ -616,11 +616,20 @@ const goToDetail = (id: number) => {
 
 .store-tags {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 24px;
+}
+
+.tags-container {
+  display: flex;
   flex-wrap: wrap;
   gap: 6px;
+  flex: 1;
+  align-items: center;
   max-height: 44px;
   overflow: hidden;
-  align-items: flex-end;
 }
 
 .tag {
@@ -653,11 +662,13 @@ const goToDetail = (id: number) => {
 }
 
 .store-arrow {
-  font-size: 18px;
-  color: #ccc;
-  display: flex;
-  align-items: center;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid #333;
+  border-right: 2px solid #333;
+  transform: rotate(45deg);
   flex-shrink: 0;
+  margin-left: auto;
 }
 
 /* 手机端适配 (默认样式，小于 768px) */
@@ -707,7 +718,10 @@ const goToDetail = (id: number) => {
   }
 
   .store-arrow {
-    font-size: 18px;
+    width: 8px;
+    height: 8px;
+    border-top-width: 2px;
+    border-right-width: 2px;
   }
 }
 
@@ -792,7 +806,10 @@ const goToDetail = (id: number) => {
   }
 
   .store-arrow {
-    font-size: 22px;
+    width: 10px;
+    height: 10px;
+    border-top-width: 2.5px;
+    border-right-width: 2.5px;
   }
 }
 
@@ -885,7 +902,10 @@ const goToDetail = (id: number) => {
   }
 
   .store-arrow {
-    font-size: 24px;
+    width: 12px;
+    height: 12px;
+    border-top-width: 3px;
+    border-right-width: 3px;
   }
 }
 </style>

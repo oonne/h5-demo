@@ -57,6 +57,42 @@
       :initial-index="previewIntroImageIndex"
     />
 
+    <!-- 店铺信息 -->
+    <div class="store-detail-wrap">
+      <div class="store-detail-title">
+        店铺信息
+      </div>
+      <div class="store-detail-list">
+        <div class="store-detail-item">
+          <div class="detail-icon">
+            🕐
+          </div>
+          <div class="detail-text">
+            下午3点~凌晨5点
+          </div>
+        </div>
+        <div class="store-detail-item">
+          <div class="detail-icon">
+            📞
+          </div>
+          <div
+            class="detail-text detail-phone"
+            @click="handleDial('15015485997')"
+          >
+            15015485997
+          </div>
+        </div>
+        <div class="store-detail-item">
+          <div class="detail-icon">
+            📍
+          </div>
+          <div class="detail-text">
+            东莞凤岗金鹏路108号附近
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- 客服 -->
     <div class="service-wrap">
       <div class="service-title">
@@ -392,7 +428,7 @@ const handleCopy = (text: string) => {
 }
 
 .store-detail-title {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 500;
   color: #333;
   margin-bottom: 12px;
@@ -401,34 +437,41 @@ const handleCopy = (text: string) => {
 .store-detail-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0;
 }
 
 .store-detail-item {
   display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid #f0f0f0;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
 }
 
-.store-detail-item:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
-}
-
-.detail-label {
-  font-size: 14px;
-  color: #666;
-  min-width: 70px;
+.detail-icon {
+  font-size: 18px;
   flex-shrink: 0;
+  width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.detail-value {
+.detail-text {
   font-size: 14px;
   color: #333;
   flex: 1;
   line-height: 1.5;
+}
+
+.detail-phone {
+  text-decoration: underline;
+  cursor: pointer;
+  color: #333;
+  transition: opacity 0.2s;
+}
+
+.detail-phone:active {
+  opacity: 0.7;
 }
 
 /* 客服 */
@@ -688,6 +731,14 @@ const handleCopy = (text: string) => {
     font-size: 16px;
   }
 
+  .store-detail-title {
+    font-size: 18px;
+  }
+
+  .detail-text {
+    font-size: 14px;
+  }
+
   .service-title {
     font-size: 18px;
   }
@@ -773,6 +824,30 @@ const handleCopy = (text: string) => {
 
   .intro-img-item {
     border-radius: 10px;
+  }
+
+  .store-detail-wrap {
+    padding: 20px 6.4vw;
+    margin-top: 10px;
+  }
+
+  .store-detail-title {
+    font-size: 20px;
+    margin-bottom: 14px;
+  }
+
+  .store-detail-item {
+    padding: 14px 0;
+    gap: 14px;
+  }
+
+  .detail-icon {
+    font-size: 20px;
+    width: 26px;
+  }
+
+  .detail-text {
+    font-size: 16px;
   }
 
   .service-wrap {
@@ -914,6 +989,37 @@ const handleCopy = (text: string) => {
 
   .intro-img-item {
     border-radius: 12px;
+  }
+
+  .store-detail-wrap {
+    padding: 24px 6.4vw;
+    margin-top: 12px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .store-detail-title {
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+
+  .store-detail-item {
+    padding: 16px 0;
+    gap: 16px;
+  }
+
+  .detail-icon {
+    font-size: 22px;
+    width: 28px;
+  }
+
+  .detail-text {
+    font-size: 17px;
+  }
+
+  .detail-phone:hover {
+    opacity: 0.8;
   }
 
   .service-wrap {
