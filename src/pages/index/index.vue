@@ -598,6 +598,8 @@ const goToDetail = (id: number) => {
   flex-direction: column;
   justify-content: space-between;
   min-height: 100px;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .store-title {
@@ -606,6 +608,10 @@ const goToDetail = (id: number) => {
   color: #333;
   line-height: 1.4;
   margin-bottom: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 
 .store-location {
