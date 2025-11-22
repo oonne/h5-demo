@@ -51,48 +51,11 @@
     </div>
 
     <!-- 店铺介绍图片预览弹窗 -->
-    <transition name="image-preview-fade">
-      <div
-        v-if="showIntroImagePreview"
-        class="image-preview-mask"
-        @click="closeIntroImagePreview"
-      >
-        <div
-          class="image-preview-content"
-          @click.stop
-        >
-          <img
-            :src="previewIntroImageUrl"
-            alt="预览图片"
-            class="preview-img"
-            @click.stop
-          >
-          <div class="image-preview-indicator">
-            {{ previewIntroImageIndex + 1 }} / {{ introImages.length }}
-          </div>
-          <button
-            class="image-preview-close"
-            @click="closeIntroImagePreview"
-          >
-            ×
-          </button>
-          <button
-            v-if="introImages.length > 1"
-            class="image-preview-prev"
-            @click.stop="prevIntroImage"
-          >
-            ‹
-          </button>
-          <button
-            v-if="introImages.length > 1"
-            class="image-preview-next"
-            @click.stop="nextIntroImage"
-          >
-            ›
-          </button>
-        </div>
-      </div>
-    </transition>
+    <ImagePreview
+      v-model="showIntroImagePreview"
+      :images="introImages"
+      :initial-index="previewIntroImageIndex"
+    />
 
     <!-- 客服 -->
     <div class="service-wrap">
@@ -104,9 +67,10 @@
       </div>
       <div class="qrcode-wrap">
         <img
-          src="./img/qrcode.png"
+          :src="QRCode"
           alt="客服二维码"
           class="qrcode-img"
+          @click="handleQrcodeClick"
         >
       </div>
     </div>
@@ -196,64 +160,35 @@
       </div>
     </transition>
 
-    <!-- 图片预览弹窗 -->
-    <transition name="image-preview-fade">
-      <div
-        v-if="showImagePreview"
-        class="image-preview-mask"
-        @click="closeImagePreview"
-      >
-        <div
-          class="image-preview-content"
-          @click.stop
-        >
-          <img
-            :src="previewImageUrl"
-            alt="预览图片"
-            class="preview-img"
-            @click.stop
-          >
-          <div class="image-preview-indicator">
-            {{ previewImageIndex + 1 }} / {{ bannerImages.length }}
-          </div>
-          <button
-            class="image-preview-close"
-            @click="closeImagePreview"
-          >
-            ×
-          </button>
-          <button
-            v-if="bannerImages.length > 1"
-            class="image-preview-prev"
-            @click.stop="prevImage"
-          >
-            ‹
-          </button>
-          <button
-            v-if="bannerImages.length > 1"
-            class="image-preview-next"
-            @click.stop="nextImage"
-          >
-            ›
-          </button>
-        </div>
-      </div>
-    </transition>
+    <!-- 轮播图预览弹窗 -->
+    <ImagePreview
+      v-model="showBannerPreview"
+      :images="bannerImages"
+      :initial-index="bannerPreviewIndex"
+    />
+
+    <!-- 客服二维码预览弹窗 -->
+    <ImagePreview
+      v-model="showQrcodePreview"
+      :images="[QRCode]"
+      :initial-index="0"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import Carousel from '@/components/carousel-swiper.vue';
+import ImagePreview from '@/components/image-preview.vue';
+import QRCode from '@/assets/img/qrcode.png';
 
 const showContactModal = ref(false);
-const showImagePreview = ref(false);
-const previewImageUrl = ref('');
-const previewImageIndex = ref(0);
 const showIntroImagePreview = ref(false);
-const previewIntroImageUrl = ref('');
 const previewIntroImageIndex = ref(0);
 const showAllImagesFlag = ref(false);
+const showQrcodePreview = ref(false);
+const showBannerPreview = ref(false);
+const bannerPreviewIndex = ref(0);
 
 // 轮播图图片（使用同一张图片三张）
 const bannerImages = ref([
@@ -293,52 +228,21 @@ const showAllImages = () => {
 
 // 处理轮播图点击
 const handleBannerImageClick = (data: { image: string; index: number }) => {
-  previewImageUrl.value = data.image;
-  previewImageIndex.value = data.index;
-  showImagePreview.value = true;
-};
-
-// 关闭图片预览
-const closeImagePreview = () => {
-  showImagePreview.value = false;
-};
-
-// 上一张图片
-const prevImage = () => {
-  previewImageIndex.value = (previewImageIndex.value - 1 + bannerImages.value.length) % bannerImages.value.length;
-  previewImageUrl.value = bannerImages.value[previewImageIndex.value];
-};
-
-// 下一张图片
-const nextImage = () => {
-  previewImageIndex.value = (previewImageIndex.value + 1) % bannerImages.value.length;
-  previewImageUrl.value = bannerImages.value[previewImageIndex.value];
+  bannerPreviewIndex.value = data.index;
+  showBannerPreview.value = true;
 };
 
 // 处理店铺介绍图片点击
 const handleIntroImageClick = (image: string, index: number) => {
   // 找到原始索引
   const originalIndex = introImages.value.findIndex((img) => img === image);
-  previewIntroImageUrl.value = image;
   previewIntroImageIndex.value = originalIndex >= 0 ? originalIndex : index;
   showIntroImagePreview.value = true;
 };
 
-// 关闭店铺介绍图片预览
-const closeIntroImagePreview = () => {
-  showIntroImagePreview.value = false;
-};
-
-// 上一张店铺介绍图片
-const prevIntroImage = () => {
-  previewIntroImageIndex.value = (previewIntroImageIndex.value - 1 + introImages.value.length) % introImages.value.length;
-  previewIntroImageUrl.value = introImages.value[previewIntroImageIndex.value];
-};
-
-// 下一张店铺介绍图片
-const nextIntroImage = () => {
-  previewIntroImageIndex.value = (previewIntroImageIndex.value + 1) % introImages.value.length;
-  previewIntroImageUrl.value = introImages.value[previewIntroImageIndex.value];
+// 处理客服二维码点击
+const handleQrcodeClick = () => {
+  showQrcodePreview.value = true;
 };
 
 // 拨打电话
@@ -558,6 +462,12 @@ const handleCopy = (text: string) => {
   width: 100%;
   height: auto;
   display: block;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.qrcode-img:active {
+  opacity: 0.8;
 }
 
 /* 底部固定栏 */
@@ -754,115 +664,7 @@ const handleCopy = (text: string) => {
   transform: translateY(100%);
 }
 
-/* 图片预览弹窗 */
-.image-preview-mask {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.9);
-  z-index: 2000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.image-preview-content {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.preview-img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  user-select: none;
-}
-
-.image-preview-close {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: rgba(0, 0, 0, 0.5);
-  color: #fff;
-  border: none;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  font-size: 28px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  z-index: 10;
-}
-
-.image-preview-close:active {
-  opacity: 0.7;
-}
-
-.image-preview-prev,
-.image-preview-next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: #fff;
-  border: none;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  font-size: 32px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  z-index: 10;
-}
-
-.image-preview-prev {
-  left: 20px;
-}
-
-.image-preview-next {
-  right: 20px;
-}
-
-.image-preview-prev:active,
-.image-preview-next:active {
-  opacity: 0.7;
-}
-
-.image-preview-indicator {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: #fff;
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 14px;
-  z-index: 10;
-}
-
-/* 图片预览动画 */
-.image-preview-fade-enter-active,
-.image-preview-fade-leave-active {
-  transition: opacity 0.3s;
-}
-
-.image-preview-fade-enter-from,
-.image-preview-fade-leave-to {
-  opacity: 0;
-}
+/* 图片预览样式已移至 image-preview 组件 */
 
 /* 手机端适配 (默认样式，小于 768px) */
 @media screen and (max-width: 767px) {
